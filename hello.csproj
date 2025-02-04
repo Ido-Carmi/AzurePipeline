@@ -3,6 +3,6 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <OutputPath>out</OutputPath>
-    <PackageId>hellllllo</PackageId>
+    <PackageId>$(artifactName)</PackageId>
   </PropertyGroup>
 </Project>
