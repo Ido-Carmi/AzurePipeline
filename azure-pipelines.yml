@@ -25,6 +25,11 @@ stages:
     - script: |
         sudo apt-get update
         sudo apt-get install -y mono-devel
+    - task: SonarQubePrepare@7
+      inputs:
+        SonarQube: 'sonarrrr'
+        scannerMode: 'dotnet'
+        projectKey: 'AzurePipeline_AzurePipeline_AZTRfC-aUy4wJAw5hilU'
     - task: DotNetCoreCLI@2
       displayName: 'Build'
       inputs:
