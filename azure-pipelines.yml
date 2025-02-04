@@ -28,5 +28,5 @@ steps:
   inputs:
     command: 'push'
     feedsToUse: 'select'
-    publishVstsFeed: 'YourFeedName'
+    publishVstsFeed: 'hi'
     allowPackageConflicts: true
