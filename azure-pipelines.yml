@@ -28,5 +28,5 @@ steps:
   inputs:
     command: 'push'
     feedsToUse: 'select'
-    publishVstsFeed: 'hi'
+    publishVstsFeed: 'AzurePipeline/hi'
     allowPackageConflicts: true
