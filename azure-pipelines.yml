@@ -53,7 +53,7 @@ stages:
 - stage: NotMain
   condition: and(succeeded(), eq(variables.isMain, false))
   jobs:
-  - job: MainLane
+  - job: NotMainLane
     steps:
       - script: echo Hello Stage B!
       - script: echo $(isMain)
