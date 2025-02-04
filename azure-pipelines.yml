@@ -16,7 +16,8 @@ steps:
     command: 'build'
     projects: '**/*.csproj'
 - task: PublishBuildArtifacts@1
- inputs:
-   PathtoPublish: 'out'
-   ArtifactName: 'drop'
-   publishLocation: 'Container'
+  inputs:
+    PathtoPublish: 'out'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
