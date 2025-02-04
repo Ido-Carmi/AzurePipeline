@@ -24,14 +24,9 @@ steps:
     packagesToPack: '**/*.csproj'
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'version'
-- task: DotNetCoreCLI@2
-  displayName: 'Push'
+- task: NuGetCommand@2
   inputs:
     command: 'push'
-    packagesToPush: 'out'
-    nuGetFeedType: 'internal'
     feedsToUse: 'select'
-    vstsFeed: 'AzurePipeline/hi'
-    publishVstsFeed: 'AzurePipeline/hi'
+    publishVstsFeed: 'hi'
     allowPackageConflicts: true
-
