@@ -15,7 +15,6 @@ steps:
 - script: |
     sudo apt-get update
     sudo apt-get install -y mono-devel
-    displayName: 'Install Mono'
 - task: DotNetCoreCLI@2
   displayName: 'Build'
   inputs:
