@@ -28,7 +28,7 @@ steps:
   displayName: 'Push'
   inputs:
     command: 'push'
-    packagesToPush: 'out/**/*.nupkg;!out/**/*.symbols.nupkg'
+    packagesToPush: 'out/**/*'
     nuGetFeedType: 'internal'
     feedsToUse: 'select'
     vstsFeed: 'AzurePipeline/hi'
