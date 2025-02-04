@@ -24,9 +24,14 @@ steps:
     packagesToPack: '**/*.csproj'
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'version'
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
+  displayName: 'Push'
   inputs:
     command: 'push'
+    packagesToPush:'out/**/*.nupkg;!out/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
     feedsToUse: 'select'
+    vstsFeed: 'AzurePipeline/hi'
     publishVstsFeed: 'AzurePipeline/hi'
     allowPackageConflicts: true
+
