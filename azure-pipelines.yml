@@ -9,12 +9,13 @@ variables:
   version: $(major).$(minor).$(patch)
   isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
 
-
+      
 stages:
 - stage: ThisIsMain
   condition: and(succeeded(), eq(variables.isMain, true))
-  job: MainLane
-  - steps:
+  jobs: 
+  - job: MainLane
+    steps:
     - task: UseDotNet@2
       inputs:
         packageType: 'sdk'
