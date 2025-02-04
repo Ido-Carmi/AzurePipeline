@@ -2,7 +2,6 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <CopyOutputSymbolsToPublishDirectory>true</CopyOutputSymbolsToPublishDirectory>
-    <OutDir>$(Build.ArtifactStagingDirectory)</OutDir>
+    <OutputPath>out</OutputPath>
   </PropertyGroup>
 </Project>
