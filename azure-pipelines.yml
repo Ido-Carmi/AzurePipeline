@@ -12,6 +12,9 @@ steps:
   inputs:
     packageType: 'sdk'
     version: '7.x'
+- task: UseMono@1
+  inputs:
+    version: '6.x'
 - task: DotNetCoreCLI@2
   displayName: 'Build'
   inputs:
