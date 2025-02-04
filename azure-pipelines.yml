@@ -1,32 +1,32 @@
 trigger:
 - main
 pool: 
- name: 'Default'
+  name: 'Default'
 variables:
- major: '1'
- minor: '0'
- patch: $[counter(variables['minor'], 0)]
- version: '$(major).$(minor).$(patch)'
+  major: 1
+  minor: 0
+  patch: $[counter(format('{0}.{1}', variables.major, variables.minor), 0)]
+  version: $(major).$(minor).$(patch)
 steps:
 - task: UseDotNet@2
- inputs:
-   packageType: 'sdk'
-   version: '7.x'
+  inputs:
+    packageType: 'sdk'
+    version: '7.x'
 - task: DotNetCoreCLI@2
- displayName: 'Build'
- inputs:
-   command: 'build'
-   projects: '**/*.csproj'
-   arguments: '/p:Version=$(version)'
+  displayName: 'Build'
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '/p:Version=$(version)'
 - task: DotNetCoreCLI@2
- inputs:
-   command: 'pack'
-   packagesToPack: '**/*.csproj'
-   versioningScheme: 'byEnvVar'
-   versionEnvVar: 'version'
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: 'version'
 - task: NuGetCommand@2
- inputs:
-   command: 'push'
-   feedsToUse: 'select'
-   publishVstsFeed: 'hi'
-   allowPackageConflicts: true
+  inputs:
+    command: 'push'
+    feedsToUse: 'select'
+    publishVstsFeed: 'YourFeedName'
+    allowPackageConflicts: true
