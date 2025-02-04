@@ -1,22 +1,61 @@
-
 trigger:
 - main
-
 pool: 
   name: 'Default'
+variables:
+  major: 1
+  minor: 0
+  patch: $[counter(format('{0}.{1}', variables.major, variables.minor), 0)]
+  version: $(major).$(minor).$(patch)
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
 
-steps:
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '7.x'
-- task: DotNetCoreCLI@2
-  displayName: 'Build'
-  inputs:
-    command: 'build'
-    projects: '**/*.csproj'
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: 'out'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+      
+stages:
+- stage: ThisIsMain
+  condition: and(succeeded(), eq(variables.isMain, true))
+  jobs: 
+  - job: MainLane
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: '7.x'
+    - script: |
+        sudo apt-get update
+        sudo apt-get install -y mono-devel
+    - task: DotNetCoreCLI@2
+      displayName: 'Build'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '/p:Version=$(version)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'pack'
+        packagesToPack: '**/*.csproj'
+        versioningScheme: 'byEnvVar'
+        versionEnvVar: 'version'
+    - task: NuGetCommand@2
+      inputs:
+        command: 'restore'
+        feedsToUse: 'select'
+        vstsFeed: 'AzurePipeline/hi'
+        restoreSolution: '**/*.sln'
+        clean: true
+        noCache: true
+    - task: NuGetCommand@2
+      inputs:
+        command: 'push'
+        feedsToUse: 'select'
+        publishVstsFeed: 'AzurePipeline/hi'
+        allowPackageConflicts: true
+
+- stage: NotMain
+  condition: and(succeeded(), eq(variables.isMain, false))
+  jobs:
+  - job: NotMainLane
+    steps:
+      - script: echo Hello Stage B!
+      - script: echo $(isMain)
+
+  
