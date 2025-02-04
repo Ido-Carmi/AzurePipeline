@@ -29,6 +29,15 @@ steps:
     versionEnvVar: 'version'
 - task: NuGetCommand@2
   inputs:
+    command: 'restore'
+    feedsToUse: 'select'
+    vstsFeed: 'AzurePipeline/hi'
+    restoreSolution: '**/*.sln'
+    clean: true
+    noCache: true
+
+- task: NuGetCommand@2
+  inputs:
     command: 'push'
     feedsToUse: 'select'
     publishVstsFeed: 'AzurePipeline/hi'
